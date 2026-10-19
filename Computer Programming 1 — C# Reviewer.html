@@ -1,0 +1,268 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Computer Programming 1 — C# Reviewer</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;700&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#f4f5fb;--pn:#fff;--tx:#161a33;--mu:#5a6086;--ac:#5b47e0;--ok:#0a8f62;--bad:#d1304a;--wn:#b9760a;--ln:#dcdff0;--cb:#12142b;--ct:#e6e8ff;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px);color-scheme:light}
+@media(prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#0c0e22;--pn:#151833;--tx:#e8eaff;--mu:#9aa1cf;--ac:#9b8cff;--ok:#3ee6b0;--bad:#ff6b86;--wn:#ffc45c;--ln:#272b52;--cb:#080a1a;color-scheme:dark}}
+:root[data-theme="dark"]{--bg:#0c0e22;--pn:#151833;--tx:#e8eaff;--mu:#9aa1cf;--ac:#9b8cff;--ok:#3ee6b0;--bad:#ff6b86;--wn:#ffc45c;--ln:#272b52;--cb:#080a1a;color-scheme:dark}
+*,*::before,*::after{box-sizing:inherit}html{scroll-padding-top:env(safe-area-inset-top,0px)}
+body{margin:0;background:var(--bg);color:var(--tx);font:16px/1.6 'Space Grotesk',system-ui,sans-serif;min-height:100vh}
+button,select,textarea{font:inherit;color:inherit}
+button{cursor:pointer;background:var(--pn);border:1px solid var(--ln);border-radius:10px;padding:.55rem .95rem}
+button:hover:not(:disabled){border-color:var(--ac)}button:disabled{opacity:.45;cursor:not-allowed}
+:focus-visible{outline:3px solid var(--ac);outline-offset:2px}
+button.p{background:var(--ac);border-color:var(--ac);color:#fff;font-weight:700}
+:root[data-theme="dark"] button.p,:root:not([data-theme="light"]) button.p{color:#0c0e22}
+@media(prefers-color-scheme:light){:root:not([data-theme="dark"]) button.p{color:#fff}}
+#side{position:fixed;inset:0 auto 0 0;width:250px;background:var(--pn);border-right:1px solid var(--ln);padding:1.2rem .9rem;display:flex;flex-direction:column;gap:.3rem;overflow:auto;z-index:20}
+.logo{font:700 1.15rem 'JetBrains Mono',monospace;margin:0 .5rem 1rem;line-height:1.3}.logo b{color:var(--ac)}
+#side a{display:block;padding:.6rem .8rem;border-radius:10px;color:var(--tx);text-decoration:none}
+#side a:hover{background:var(--bg)}#side a.on{background:var(--ac);color:#fff}
+:root[data-theme="dark"] #side a.on,:root:not([data-theme="light"]) #side a.on{color:#0c0e22}
+@media(prefers-color-scheme:light){:root:not([data-theme="dark"]) #side a.on{color:#fff}}
+#side .sp{flex:1}
+#top{display:none}
+main{margin-left:250px;padding:2rem clamp(1rem,4vw,3rem) 4rem;max-width:1000px}
+h1{font-size:clamp(1.7rem,4.5vw,2.6rem);line-height:1.15;margin:.2rem 0 .6rem}h2{margin:1.8rem 0 .5rem;font-size:1.25rem}h3{margin:0 0 .4rem}
+.mu{color:var(--mu)}.card{background:var(--pn);border:1px solid var(--ln);border-radius:14px;padding:1.1rem 1.2rem}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));gap:.9rem}
+.stat{font:700 2rem 'JetBrains Mono',monospace;color:var(--ac)}
+.bar{height:10px;background:var(--ln);border-radius:9px;overflow:hidden}.bar i{display:block;height:100%;background:linear-gradient(90deg,var(--ac),var(--ok));transition:width .4s}
+pre{background:var(--cb);color:var(--ct);padding:1rem;border-radius:12px;overflow-x:auto;font:.9rem/1.55 'JetBrains Mono',monospace;margin:.5rem 0;max-width:100%}
+.k{color:#ff9d6e}.s{color:#7ee0a6}.c{color:#7c84b8}.n{color:#7cc4ff}
+.tw{overflow-x:auto}table{border-collapse:collapse;width:100%;font-size:.92rem}th,td{border:1px solid var(--ln);padding:.4rem .6rem;text-align:left;font-family:'JetBrains Mono',monospace}th{background:var(--bg)}
+td.l,.tw td:last-child{font-family:inherit}
+.tag{display:inline-block;font-size:.78rem;padding:.1rem .55rem;border-radius:99px;border:1px solid var(--ln);color:var(--mu);margin-right:.3rem}
+.row{display:flex;gap:.6rem;flex-wrap:wrap;align-items:center;margin:.8rem 0}
+.lcard{text-align:left;display:block;width:100%;padding:1rem}.lcard.d{border-color:var(--ok)}
+.sec{border-left:4px solid var(--ac);padding-left:1rem;margin:1.2rem 0}.sec h3{color:var(--ac)}
+.ex{background:var(--bg);padding:.6rem .8rem;border-radius:10px;margin:.5rem 0}.ex b{color:var(--bad)}
+#fc{perspective:900px;height:230px;margin:1rem 0}
+#fc div{position:relative;height:100%;transition:transform .5s;transform-style:preserve-3d;cursor:pointer}
+#fc.f div{transform:rotateY(180deg)}
+#fc section{position:absolute;inset:0;backface-visibility:hidden;display:flex;align-items:center;justify-content:center;text-align:center;padding:1.2rem;border-radius:16px;border:2px solid var(--ac);background:var(--pn);white-space:pre-wrap;overflow:auto;font-size:1.1rem}
+#fc section:last-child{transform:rotateY(180deg);background:var(--ac);color:#fff}
+:root[data-theme="dark"] #fc section:last-child,:root:not([data-theme="light"]) #fc section:last-child{color:#0c0e22}
+@media(prefers-color-scheme:light){:root:not([data-theme="dark"]) #fc section:last-child{color:#fff}}
+.opt{display:block;width:100%;text-align:left;margin:.4rem 0}.opt.sel{border-color:var(--ac);background:var(--bg)}
+.opt.ok{border-color:var(--ok);background:color-mix(in srgb,var(--ok) 18%,transparent)}.opt.no{border-color:var(--bad);background:color-mix(in srgb,var(--bad) 18%,transparent)}
+.fb{padding:.8rem 1rem;border-radius:10px;margin-top:.8rem;border:1px solid}.fb.ok{border-color:var(--ok)}.fb.no{border-color:var(--bad)}
+textarea{width:100%;min-height:130px;background:var(--cb);color:var(--ct);border:1px solid var(--ln);border-radius:12px;padding:.8rem;font:.9rem 'JetBrains Mono',monospace}
+select{background:var(--pn);border:1px solid var(--ln);border-radius:10px;padding:.5rem}
+@media(max-width:820px){
+#side{transform:translateX(-100%);transition:transform .25s;width:min(82vw,290px)}#side.open{transform:none;box-shadow:0 0 0 100vmax rgba(0,0,0,.5)}
+#top{display:flex;align-items:center;gap:.8rem;position:sticky;top:env(safe-area-inset-top,0px);background:var(--pn);border-bottom:1px solid var(--ln);padding:.6rem 1rem;z-index:10;margin:0 0 0 0}
+main{margin-left:0;padding-top:1rem}}
+@media(prefers-reduced-motion:reduce){*{transition:none!important}}
+</style></head><body>
+<div id="top"><button id="mb" aria-label="Open menu" aria-expanded="false">☰</button><b class="logo" style="margin:0">C# Reviewer</b></div>
+<nav id="side" aria-label="Main"></nav>
+<main id="app" tabindex="-1"></main>
+<script>
+const $=s=>document.querySelector(s),esc=t=>t.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
+const KW='int|float|double|char|string|bool|new|if|else|for|while|do|switch|case|break|default|void|static|class|using';
+function hl(c){return esc(c).replace(new RegExp('(\\/\\/.*)|("[^"]*")|\\b('+KW+')\\b|\\b(\\d+)\\b','g'),(m,a,b,k,n)=>a?`<span class=c>${a}</span>`:b?`<span class=s>${b}</span>`:k?`<span class=k>${k}</span>`:`<span class=n>${n}</span>`)}
+const code=c=>`<pre><code>${hl(c)}</code></pre>`;
+const TOP={if:'if / else',switch:'switch',loops:'Loops',arrays:'Arrays'};
+/* ---------- CONTENT (edit here to add lessons) ---------- */
+const L=[
+{id:'l1',g:'if',t:'Control Structures and the if Statement',
+w:'A control structure controls the order in which statements run. C# has three kinds: Sequence (built in, top to bottom), Selection (choose different actions for different decisions) and Repetition (repeat actions). The if statement is the simplest selection structure (single-selection): it performs an action if the condition is true, or skips it if the condition is false.',
+y:'Programs must react to data. A grade of 80 and a grade of 60 should not produce the same message.',
+s:'if (condition)\n    statement;\n\n// or, for several statements (compound):\nif (condition)\n{\n    statement1;\n    statement2;\n}',
+sx:'<code>if</code> is a reserved word. <code>condition</code> is a relational expression inside parentheses. The statement can be simple (one line) or compound (inside { }).',
+c:'int grade = 80;\nif (grade >= 75)\n{\n    Console.WriteLine("Passed");\n    Console.WriteLine("Excellent");\n}',
+b:['<code>grade = 80</code> stores 80 in grade.','<code>grade >= 75</code> is the condition. It is true or false.','Both lines inside { } run only when the condition is true.'],
+o:'Passed\nExcellent',
+tr:{h:['Step','What happens'],r:[['1','grade becomes 80'],['2','80 >= 75 is true'],['3','Both WriteLine lines run, then the program ends']]},
+m:[['if (grade >= 75);','A stray semicolon ends the if early, so the block below always runs. Remove the ;'],['if grade >= 75','The condition needs parentheses: if (grade >= 75)']],
+try:'Write an if that prints "Positive" when num is greater than 0.',
+r:['Selection structure = conditional statement.','if runs code only when its condition is true.','The condition goes inside parentheses.','Use { } for more than one statement.']},
+{id:'l2',g:'if',t:'if...else and Nested if',
+w:'if...else is a two-way selection: one block runs when the condition is true and a different block runs when it is false. A nested if places if-else structures inside other if-else structures to test multiple conditions.',
+y:'Use it when there are two outcomes (pass/fail) or several outcomes checked in order (grade levels).',
+s:'if (condition)\n    statement;\nelse\n    statement;\n\n// Syntax 1 (else if chain)\nif (condition1)\n    statement;\nelse if (condition2)\n    statement;\nelse\n    statement;\n\n// Syntax 2 (if inside if)\nif (condition1)\n{\n    if (condition2)\n        statement;\n    else\n        statement;\n}\nelse\n    statement;',
+sx:'Only one branch runs. In an else-if chain, C# checks from the top and stops at the first true condition.',
+c:'int score = 100;\nif (score >= 50)\n{\n    Console.WriteLine("You Passed!");\n    if (score == 100)\n        Console.Write("Perfect!");\n}\nelse\n    Console.WriteLine("You Failed!");',
+b:['Outer if: <code>score >= 50</code> is true, so print "You Passed!".','Inner if: <code>score == 100</code> is true, so print "Perfect!".','<code>==</code> compares; <code>=</code> assigns.'],
+o:'You Passed!\nPerfect!',
+tr:{h:['Check','Result','Action'],r:[['score >= 50','true','Print You Passed!'],['score == 100','true','Print Perfect!'],['else','skipped','—']]},
+m:[['if (score = 100)','= assigns. Use == to compare. C# reports a compile error here.'],['Checking 80 before 90 in an else-if chain','A score of 95 matches the first true condition, so check the highest range first.']],
+try:'Accept a number and print whether it is ODD or EVEN. (Hint: % gives the remainder.)',
+r:['else runs when the condition is false.','else if lets you test many conditions in order.','Nested if = an if inside an if.','== compares, = assigns.']},
+{id:'l3',g:'switch',t:'switch...case',
+w:'A switch statement tests a variable for equality against a list of values. Each value is called a case, and the variable being switched on is checked against each case.',
+y:'It is cleaner than a long else-if chain when you compare one variable with many exact values, such as day numbers or menu choices.',
+s:'switch (expression)\n{\n    case value:\n        // statements\n        break;\n    case value:\n        // statements\n        break;\n    default: // optional\n        // statements\n        break;\n}',
+sx:'<code>break</code> ends the switch and jumps to the next line after it. <code>default</code> runs when no case matches and must be at the end.',
+c:'int day = 3;\nswitch (day)\n{\n    case 1:\n        Console.WriteLine("Monday");\n        break;\n    case 2:\n        Console.WriteLine("Tuesday");\n        break;\n    case 3:\n        Console.WriteLine("Wednesday");\n        break;\n    default:\n        Console.WriteLine("Invalid input!");\n        break;\n}',
+b:['<code>switch (day)</code> reads the value 3.','C# compares 3 with case 1, case 2, then case 3 — a match.','The statements run until <code>break</code>.','default is skipped because a case matched.'],
+o:'Wednesday',
+tr:{h:['Case','Equal to 3?','Action'],r:[['case 1','no','skip'],['case 2','no','skip'],['case 3','yes','Print Wednesday, break'],['default','—','not reached']]},
+m:[['Forgetting break','C# does not let one case run into the next. Add break at the end of each case.'],['Spelling default as "dafault"','The module slide has this typo. The keyword is default.'],['case with a variable','Case values must be constants or literals of the same type as the switch variable.']],
+try:'Write a switch on an int menu (1 = Add, 2 = Subtract) that prints "Invalid input!" for other values.',
+r:['Switch variable: integer types (byte, short, char) or string.','Case values must be constants or literals of the same type.','break ends the switch.','default is optional and goes last.']},
+{id:'l4',g:'loops',t:'The for Loop',
+w:'A loop repeats statements. The for loop is a repetition structure with three parts: initialization sets the loop control variable, condition decides when the loop stops, and update changes the variable each time.',
+y:'Use for when you know how many times to repeat, like printing 1 to 5.',
+s:'for (initialization; condition; update)\n    statement;',
+sx:'Initialization runs once. The condition is checked before every repeat. The update runs after each repeat.',
+c:'int count;\nfor (count = 1; count <= 5; count++)\n    Console.Write(count + "\\t");',
+b:['<code>count = 1</code> starts the loop.','<code>count <= 5</code> keeps it going.','<code>count++</code> adds 1 each time.','<code>"\\t"</code> prints a tab after each number.'],
+o:'1\t2\t3\t4\t5',
+tr:{h:['count','count <= 5','Prints'],r:[['1','true','1'],['2','true','2'],['3','true','3'],['4','true','4'],['5','true','5'],['6','false','loop ends']]},
+m:[['for (count = 1; count <= 5; count--)','count never reaches the end, so the loop never stops. Use count++.'],['Using < 5 when you want 5','< stops before 5. Use <= 5.']],
+try:'Use a for loop to print the even numbers from 2 to 10 (see the Code Tracing Lab).',
+r:['for has initialization, condition, update.','Condition false = loop stops.','count++ means add 1.','<= includes the last number; < excludes it.']},
+{id:'l5',g:'loops',t:'while and do...while Loops',
+w:'while executes a block as long as its condition is true. do-while checks its condition at the bottom of the loop, so it always runs at least once.',
+y:'Use while when you do not know how many repeats are needed. Use do-while when the code must run once before checking.',
+s:'while (condition)\n    statement;\n\ndo\n{\n    statements;\n}\nwhile (condition);',
+sx:'Notice the semicolon after <code>while (condition)</code> in a do-while. The plain while has none.',
+c:'int count = 1;\nwhile (count <= 5)\n{\n    Console.Write(count + "\\t");\n    count++;\n}',
+b:['<code>count = 1</code> is set before the loop.','The condition is checked before each repeat.','<code>count++</code> inside the loop makes the condition eventually false.'],
+o:'1\t2\t3\t4\t5',
+tr:{h:['Check','count','Action'],r:[['1 <= 5','1','Print 1, count becomes 2'],['2 <= 5','2','Print 2, count becomes 3'],['…','…','…'],['5 <= 5','5','Print 5, count becomes 6'],['6 <= 5','6','false — stop']]},
+m:[['Forgetting count++','The condition stays true forever (infinite loop).'],['do-while without ; at the end','do { } while (condition); needs the semicolon.']],
+try:'Ask for 5 numbers and display their sum (Sample Problem in the module).',
+r:['while tests the condition first.','do-while tests last, so it runs at least once.','Always change the variable inside the loop.','for, while, do-while are the three loops.']},
+{id:'l6',g:'arrays',t:'Single-Dimensional Arrays',
+w:'An array is a sequence of elements that all have the same type. Each element is numbered by an index (subscript) that starts at 0. A one-dimensional array has one row and uses one set of square brackets [ ].',
+y:'Arrays store many related values (like 10 grades) in one variable instead of 10 separate variables.',
+s:'data_type[] name;\ndata_type[] name = new data_type[size];\ndata_type[] name = {element1, element2, ...};\n\nstring[] days = new string[7];\ndays[0] = "sunday";',
+sx:'<code>new float[5]</code> creates 5 slots (index 0 to 4). Values are assigned with <code>name[index] = value</code>.',
+c:'int[] Grades = {90, 86, 91, 85, 78, 89, 96, 93, 88, 87};\nfor (int a = 0; a < 10; a++)\n    Console.Write(Grades[a] + "\\t");',
+b:['The array holds 10 grades at index 0 to 9.','<code>a</code> starts at 0 and stops before 10.','<code>Grades[a]</code> reads the element at index a.'],
+o:'90\t86\t91\t85\t78\t89\t96\t93\t88\t87',
+tr:{h:['a','Grades[a]','Printed so far'],r:[['0','90','90'],['1','86','90 86'],['2','91','90 86 91'],['…','…','…'],['9','87','all 10 values'],['10','—','10 < 10 false, stop']]},
+m:[['Grades[10]','The last index is 9 (size − 1). Index 10 causes an IndexOutOfRangeException when the program runs.'],['Starting the index at 1','The first element is index 0.'],['char[] vowels = {a, e, i}','Module typo: characters need single quotes: {\'a\', \'e\', \'i\'}.']],
+try:'Declare an array of 5 integers and print the third element (index 2).',
+r:['Array = same-type elements.','Index starts at 0.','Last index = size − 1.','Loops make printing arrays short.']},
+{id:'l7',g:'arrays',t:'Multidimensional (2D) Arrays',
+w:'A multidimensional array stores data in rows and columns (a matrix). C# supports up to 32 dimensions. You use commas inside the square brackets: [,] for two dimensions.',
+y:'Use it for tables of data, like a grid of scores or a seating plan.',
+s:'data_type[,] name;\ndata_type[,] name = new data_type[row, column];\nint[,] array2D = { { 1, 2 }, { 3, 4 }, { 5, 6 }, { 7, 8 } };\nint[,] a2 = new int[4,2] { { 1, 2 }, { 3, 4 }, { 5, 6 }, { 7, 8 } };',
+sx:'Each inner { } is one row. <code>array2D[row, col]</code> reads one element; both numbers start at 0.',
+c:'int[,] array2D = { { 1, 2 }, { 3, 4 }, { 5, 6 }, { 7, 8 } };\nConsole.WriteLine(array2D[0, 0]);\nConsole.WriteLine(array2D[3, 1]);',
+b:['The array has 4 rows and 2 columns.','<code>[0, 0]</code> is row 0, column 0 = 1.','<code>[3, 1]</code> is row 3, column 1 = 8.'],
+o:'1\n8',
+tr:{h:['Row','Col 0','Col 1'],r:[['0','1','2'],['1','3','4'],['2','5','6'],['3','7','8']]},
+m:[['int[][] a = ...','Square brackets with no comma mean a different kind of array. The module uses [,].'],['array2D[4, 0]','There are only rows 0–3, so row 4 is out of range.']],
+try:'Using array2D above, which expression gives 6? (Answer: array2D[2, 1])',
+r:['Rows and columns, written [,].','new int[4,2] = 4 rows, 2 columns.','Access with [row, column].','Both indexes start at 0.']}];
+const FC=[['if','What does an if statement do?','Performs an action if the condition is true, skips it if false.'],['if','Three types of control structures?','Sequence, Selection, Repetition.'],['if','Another name for single-selection?','The if structure.'],['if','Another name for if...else?','Two-way selection structure.'],['if','if (x == 5) vs if (x = 5)?','== compares. = assigns (error in a condition).'],['if','What is a nested if?','An if-else placed inside another if-else.'],['switch','What is each value in a switch called?','A case.'],['switch','What does break do in a switch?','Ends the switch and jumps to the next line after it.'],['switch','Where must default go?','At the end. It is optional and runs when no case matches.'],['switch','Allowed switch variable types?','Integers, convertible integers (byte, short, char) and strings.'],['loops','Three parts of a for loop?','Initialization; condition; update.'],['loops','Output?\nfor (int i=1;i<=3;i++)\n Console.Write(i);','123'],['loops','Which loop runs at least once?','do-while (it checks the condition at the bottom).'],['loops','What happens if you forget count++ in a while loop?','The condition never becomes false: infinite loop.'],['arrays','What is an array?','A sequence of elements that all have the same type.'],['arrays','First index of an array?','0'],['arrays','int[] a = new int[5];\nLast index?','4'],['arrays','How do you declare a 2D array?','int[,] name; (a comma inside the brackets)'],['arrays','int[,] m = {{1,2},{3,4}};\nm[1,0] = ?','3']];
+const Q=[
+{g:'if',q:'What does this print?',c:'int num = 5;\nif (num > 0)\n    Console.Write("positive");\nelse\n    Console.Write("negative");',o:['positive','negative','positivenegative','Nothing'],a:0,e:'5 > 0 is true, so the if branch runs and the else is skipped.'},
+{g:'if',q:'An if statement skips its action when the condition is…',o:['true','false','a number','missing'],a:1,e:'if performs the action when true and skips it when false.'},
+{g:'if',q:'Find the error.',c:'int grade = 80;\nif grade >= 75\n    Console.WriteLine("Passed");',o:['Missing parentheses around the condition','Missing semicolon after 80','Console should be lowercase','grade must be a string'],a:0,e:'The condition must be in parentheses: if (grade >= 75).'},
+{g:'if',q:'Find the error.',c:'int x = 5;\nif (x = 5)\n    Console.WriteLine("Five");',o:['Uses = (assignment) instead of == (comparison)','Missing else','x must be double','Missing braces'],a:0,e:'= assigns a value. A condition needs == to compare, so this fails to compile.'},
+{g:'if',q:'True or false: in an else-if chain, C# runs every true branch.',o:['True','False'],a:1,e:'Only the first true condition runs; the rest are skipped.'},
+{g:'if',q:'Complete the code so it prints Even for even numbers.',c:'int n = 8;\nif (______)\n    Console.WriteLine("Even");',o:['n % 2 == 0','n / 2 == 0','n % 2 = 0','n == 2'],a:0,e:'n % 2 is the remainder after dividing by 2. An even number has remainder 0. == compares.'},
+{g:'switch',q:'What does this print?',c:'int day = 3;\nswitch (day)\n{\n    case 1: Console.WriteLine("Mon"); break;\n    case 3: Console.WriteLine("Wed"); break;\n    default: Console.WriteLine("Invalid"); break;\n}',o:['Mon','Wed','Invalid','Wed then Invalid'],a:1,e:'day is 3, so case 3 matches. break ends the switch before default.'},
+{g:'switch',q:'When does the default case run?',o:['Always','When no case matches','Before the first case','Only when break is missing'],a:1,e:'default handles the situation where none of the cases is true.'},
+{g:'switch',q:'Find the error.',c:'switch (n)\n{\n    case 1:\n        Console.WriteLine("A");\n    case 2:\n        Console.WriteLine("B");\n        break;\n}',o:['case 1 has no break','case 2 needs default','n must be a string','Console.WriteLine needs Write'],a:0,e:'Each case must end with break (C# does not let execution run into the next case).'},
+{g:'loops',q:'What does this print?',c:'int sum = 0;\nfor (int i = 1; i <= 3; i++)\n    sum += i;\nConsole.Write(sum);',o:['3','5','6','123'],a:2,e:'sum: 0 → 1 → 3 → 6. Only the final sum is printed.'},
+{g:'loops',q:'What does this print?',c:'for (int a = 1; a <= 10; a++)\n{\n    if (a % 2 == 0)\n        Console.Write(a + " ");\n}',o:['1 3 5 7 9','2 4 6 8 10','1 2 3 … 10','2 4 6 8'],a:1,e:'The loop visits 1 to 10, and only even values (remainder 0) are printed.'},
+{g:'loops',q:'What is the value of count after this loop?',c:'int count = 1;\nwhile (count <= 5)\n{\n    count++;\n}\nConsole.Write(count);',o:['5','6','1','Infinite loop'],a:1,e:'The loop stops when count becomes 6 because 6 <= 5 is false. 6 is printed.'},
+{g:'loops',q:'True or false: a do-while loop always executes at least once.',o:['True','False'],a:0,e:'do-while checks its condition at the bottom, after the body has run once.'},
+{g:'loops',q:'How many times does "Hi" print?',c:'int n = 10;\ndo\n{\n    Console.Write("Hi");\n}\nwhile (n < 5);',o:['0','1','5','10'],a:1,e:'The body runs once before the condition 10 < 5 (false) is tested.'},
+{g:'loops',q:'Complete the loop to print 1 to 5.',c:'for (int i = 1; ______; i++)\n    Console.Write(i + " ");',o:['i <= 5','i < 5','i >= 5','i == 6'],a:0,e:'i <= 5 keeps looping through 5. i < 5 would stop at 4.'},
+{g:'arrays',q:'What does this print?',c:'int[] n = {4, 8, 15};\nConsole.Write(n[1] + n[2]);',o:['23','815','19','8'],a:0,e:'n[1] is 8 and n[2] is 15 (index starts at 0). Integers are added: 8 + 15 = 23.'},
+{g:'arrays',q:'What does a[3] = 10; cause here?',c:'int[] a = new int[3];\na[3] = 10;',o:['Sets the last element','A runtime error: index out of range','Creates a 4th element','Nothing'],a:1,e:'Valid indexes are 0, 1, 2. Index 3 is outside the array.'},
+{g:'arrays',q:'True or false: the first element of an array has index 1.',o:['True','False'],a:1,e:'Array indexes start at 0.'},
+{g:'arrays',q:'What is m[2, 0]?',c:'int[,] m = { {1, 2}, {3, 4}, {5, 6} };',o:['3','5','6','2'],a:1,e:'Row 2 is {5, 6}. Column 0 of that row is 5.'}];
+const mk=(h,rows)=>rows.map(r=>r);
+const T=[
+{t:'Sum with a for loop',c:'int sum = 0;\nfor (int i = 1; i <= 3; i++)\n{\n    sum += i;\n}\nConsole.WriteLine(sum);',h:['Step','i','sum','Explanation'],r:[['Initial','—','0','The sum starts at 0.'],['1','1','1','1 <= 3, add 1 to sum.'],['2','2','3','2 <= 3, add 2 to sum.'],['3','3','6','3 <= 3, add 3 to sum.'],['End','4','6','4 <= 3 is false, the loop stops. Prints 6.']]},
+{t:'Even numbers',c:'for (int a = 1; a <= 6; a++)\n{\n    int b = a % 2;\n    if (b == 0)\n        Console.Write(a + "\\t");\n}',h:['Step','a','b','Output so far'],r:[['1','1','1','(nothing: b is not 0)'],['2','2','0','2'],['3','3','1','2'],['4','4','0','2 4'],['5','5','1','2 4'],['6','6','0','2 4 6'],['End','7','—','7 <= 6 is false. Output: 2 4 6']]},
+{t:'Array and index',c:'int[] g = {90, 86, 91};\nfor (int a = 0; a < 3; a++)\n    Console.Write(g[a] + " ");',h:['Step','a','g[a]','Output so far'],r:[['1','0','90','90'],['2','1','86','90 86'],['3','2','91','90 86 91'],['End','3','—','3 < 3 is false. Output: 90 86 91']]}];
+const P=[
+{lv:'Beginner',t:'Odd or Even',p:'Accept a number and print whether it is ODD or EVEN.',io:'Enter a number: 7\nODD',h:'The remainder of n % 2 is 0 for even numbers.',s:'Console.Write("Enter a number: ");\nint n = Convert.ToInt32(Console.ReadLine());\nif (n % 2 == 0)\n    Console.WriteLine("EVEN");\nelse\n    Console.WriteLine("ODD");',x:'Line 1 prompts. Line 2 reads text and converts it to an int (additional explanation: Convert.ToInt32 is not in the module slides). Lines 3–6: remainder 0 means even, otherwise odd.'},
+{lv:'Beginner',t:'Sum of 5 numbers',p:'Ask the user for 5 numbers and display their sum.',io:'Enter a number: 5\n...(5 times)\nThe sum is: 25',h:'Use a counter and a sum variable that starts at 0.',s:'int sum = 0;\nfor (int i = 1; i <= 5; i++)\n{\n    Console.Write("Enter a number: ");\n    sum += Convert.ToInt32(Console.ReadLine());\n}\nConsole.WriteLine("The sum is: " + sum);',x:'sum starts at 0. The loop runs 5 times; each time a number is read and added to sum. After the loop the total is printed.'},
+{lv:'Intermediate',t:'Positive, Negative or Zero',p:'Accept a number and print POSITIVE, NEGATIVE or ZERO.',io:'Enter a number: -4\nNEGATIVE',h:'Use if / else if / else.',s:'int n = Convert.ToInt32(Console.ReadLine());\nif (n > 0)\n    Console.WriteLine("POSITIVE");\nelse if (n < 0)\n    Console.WriteLine("NEGATIVE");\nelse\n    Console.WriteLine("ZERO");',x:'Check > 0 first, then < 0. If neither is true the number must be zero, so the final else prints ZERO.'},
+{lv:'Intermediate',t:'Course admission',p:'Accept a student name and average. 90 and above = BLIS, >= 85 = BSCS, >= 80 = BSIT. Print the name and course.',io:'Enter Student Name: Juan Dela Cruz\nEnter Average Grade: 83.74\nStudent Name: Juan Dela Cruz\nCourse: BSIT',h:'Check the highest average first. Use double for 83.74.',s:'Console.Write("Enter Student Name: ");\nstring name = Console.ReadLine();\nConsole.Write("Enter Average Grade: ");\ndouble avg = Convert.ToDouble(Console.ReadLine());\nstring course;\nif (avg >= 90)\n    course = "BLIS";\nelse if (avg >= 85)\n    course = "BSCS";\nelse if (avg >= 80)\n    course = "BSIT";\nelse\n    course = "No course";\nConsole.WriteLine("Student Name: " + name);\nConsole.WriteLine("Course: " + course);',x:'The chain checks 90, then 85, then 80, so 83.74 reaches the third test. The final else (additional: not defined in the module) covers averages below 80.'},
+{lv:'Challenge',t:'Sort 5 names',p:'Input 5 student names, store them in an array and display them in ascending order.',io:'(5 names entered)\nAna\nBen\nCarl\nDina\nEli',h:'Use string[] with a for loop to read, then sort.',s:'string[] names = new string[5];\nfor (int i = 0; i < 5; i++)\n{\n    Console.Write("Enter name: ");\n    names[i] = Console.ReadLine();\n}\nArray.Sort(names);\nfor (int i = 0; i < 5; i++)\n    Console.WriteLine(names[i]);',x:'The first loop fills the array. Array.Sort puts strings in ascending order (additional explanation: Array.Sort is not in the module slides). The second loop prints each name.'}];
+/* ---------- STATE ---------- */
+let S={done:[],cards:{},qa:{},best:{},prac:[],last:'l1'};
+try{S=Object.assign(S,JSON.parse(localStorage.getItem('csr')||'{}'))}catch(e){}
+const save=()=>{try{localStorage.setItem('csr',JSON.stringify(S))}catch(e){}};
+const pct=()=>{const a=[S.done.length/L.length,Object.keys(S.cards).length/FC.length,Object.keys(S.qa).length/Q.length,S.prac.length/P.length];return Math.round(a.reduce((x,y)=>x+y)/4*100)};
+const tbl=(h,r)=>`<div class=tw><table><tr>${h.map(x=>`<th>${esc(x)}</th>`).join('')}</tr>${r.map(x=>`<tr>${x.map(y=>`<td>${esc(y)}</td>`).join('')}</tr>`).join('')}</table></div>`;
+const $a=$('#app');
+const NAV=[['home','🏠 Dashboard'],['lessons','📘 Lessons'],['cards','🃏 Flashcards'],['quiz','✅ Quiz'],['trace','🔍 Code Tracing Lab'],['practice','⌨️ Practice']];
+function nav(r){$('#side').innerHTML=`<div class=logo>C# <b>Reviewer</b><br><span class=mu style="font-size:.75rem;font-weight:400">Computer Programming 1</span></div>`+NAV.map(([k,n])=>`<a href="#${k}" class="${r===k||(k==='lessons'&&r.startsWith('l')&&r.length<3)?'on':''}">${n}</a>`).join('')+`<div class=sp></div><button id=th>🌓 Switch theme</button><button id=rs>Reset progress</button>`;
+$('#th').onclick=()=>{const d=document.documentElement,dark=matchMedia('(prefers-color-scheme:dark)').matches;const cur=d.dataset.theme||(dark?'dark':'light');d.dataset.theme=cur==='dark'?'light':'dark'};
+$('#rs').onclick=()=>{if(confirm('Reset ALL progress? This cannot be undone.')){S={done:[],cards:{},qa:{},best:{},prac:[],last:'l1'};save();route()}}}
+const V={
+home(){const p=pct();return `<h1>Learn C# by tracing it, not just reading it.</h1><p class=mu>Welcome! This reviewer follows your Modules 3–5: if/else, switch, loops and arrays. Read a lesson, trace the code, flip flashcards, then test yourself.</p>
+<div class=row><button class=p onclick="location.hash='#${S.last}'">Continue learning: ${L.find(l=>l.id===S.last).t}</button></div>
+<div class=grid><div class=card><div class=stat>${S.done.length}/${L.length}</div>lessons completed</div><div class=card><div class=stat>${Object.keys(S.cards).length}/${FC.length}</div>flashcards reviewed</div><div class=card><div class=stat>${Object.keys(S.qa).length}/${Q.length}</div>quiz questions answered</div><div class=card><div class=stat>${S.prac.length}/${P.length}</div>exercises done</div></div>
+<h2>Overall progress: ${p}%</h2><div class=bar role=progressbar aria-valuenow=${p} aria-valuemin=0 aria-valuemax=100><i style="width:${p}%"></i></div>
+<h2>Needs more practice</h2><p>${weak()}</p>
+<h2>Lessons</h2><div class=grid>${L.map((l,i)=>lc(l,i)).join('')}</div>
+<h2>Study tools</h2><div class=grid><a class=card href="#cards">🃏 Flashcards</a><a class=card href="#quiz">✅ Code quiz</a><a class=card href="#trace">🔍 Code Tracing Lab</a><a class=card href="#practice">⌨️ Practice exercises</a></div>`},
+lessons(){return `<h1>Lessons</h1><div class=grid>${L.map((l,i)=>lc(l,i)).join('')}</div>`},
+cards(){return fcView()},quiz(){return qSetup()},trace(){return trView()},practice(){return prView()}};
+const lc=(l,i)=>`<a class="card lcard ${S.done.includes(l.id)?'d':''}" href="#${l.id}" style="color:inherit;text-decoration:none"><span class=tag>${TOP[l.g]}</span>${S.done.includes(l.id)?'<span class=tag>✔ done</span>':''}<h3>${i+1}. ${l.t}</h3></a>`;
+function weak(){const w=Object.keys(TOP).filter(g=>{const qs=Q.map((q,i)=>[q,i]).filter(x=>x[0].g===g&&x[1] in S.qa);return qs.some(x=>S.qa[x[1]]===0)||Object.entries(S.cards).some(([i,v])=>FC[i][0]===g&&v==='d')});return w.length?w.map(g=>`<span class=tag>${TOP[g]}</span>`).join(''):'<span class=mu>Nothing flagged yet. Take a quiz or rate flashcards to find weak spots.</span>'}
+function lesson(id){const l=L.find(x=>x.id===id),i=L.indexOf(l);S.last=id;save();const sec=(h,b)=>`<div class=sec><h3>${h}</h3>${b}</div>`;
+return `<a href="#lessons" class=mu>← All lessons</a><h1>${l.t}</h1><span class=tag>${TOP[l.g]}</span><span class=tag>Lesson ${i+1} of ${L.length}</span>`+
+sec('A. What is it?',`<p>${l.w}</p>`)+sec('B. Why do we use it?',`<p>${l.y}</p>`)+sec('C–D. Syntax',code(l.s)+`<p>${l.sx}</p>`)+sec('E. Example code',code(l.c))+
+sec('F. Code breakdown',`<ul>${l.b.map(x=>`<li>${x}</li>`).join('')}</ul>`)+sec('G. Expected output',`<pre>${esc(l.o)}</pre>`)+sec('H. Trace the code',tbl(l.tr.h,l.tr.r))+
+sec('I. Common mistakes',l.m.map(m=>`<div class=ex><b>✗</b> <code>${esc(m[0])}</code><br>${esc(m[1])}</div>`).join(''))+sec('J. Try it yourself',`<p>${l.try}</p>`)+sec('K. Quick review',`<ul>${l.r.map(x=>`<li>${x}</li>`).join('')}</ul>`)+
+`<p class=mu>Module slides contain a few typos (curly quotes, "dafault", missing quotes on chars). The code here is corrected so it compiles.</p>
+<div class=row><button class=p id=dn>${S.done.includes(id)?'✔ Completed (click to undo)':'Mark lesson complete'}</button>${i>0?`<button onclick="location.hash='#${L[i-1].id}'">← Previous</button>`:''}${i<L.length-1?`<button onclick="location.hash='#${L[i+1].id}'">Next →</button>`:''}</div>`}
+/* flashcards */
+let F={g:'all',deck:[],i:0,flip:false,hard:false};
+function fcDeck(){F.deck=FC.map((c,i)=>i).filter(i=>(F.g==='all'||FC[i][0]===F.g)&&(!F.hard||S.cards[i]==='d'||S.cards[i]==='p'));F.i=0;F.flip=false}
+function fcView(){if(!F.deck.length&&!F.hard)fcDeck();const n=F.deck.length,c=FC[F.deck[F.i]];
+return `<h1>Flashcards</h1><div class=row><select id=fg aria-label="Topic"><option value=all>All topics</option>${Object.entries(TOP).map(([k,v])=>`<option value=${k} ${F.g===k?'selected':''}>${v}</option>`).join('')}</select><button id=fs>🔀 Shuffle</button><button id=fh class="${F.hard?'p':''}">Review difficult / needs practice</button></div>`+
+(n?`<p class=mu>Card ${F.i+1} of ${n} · ${Math.round(Object.keys(S.cards).filter(k=>F.deck.includes(+k)).length/n*100)}% of this deck reviewed</p><div class=bar><i style="width:${(F.i+1)/n*100}%"></i></div>
+<div id=fc class="${F.flip?'f':''}"><div role=button tabindex=0 aria-label="Flip card"><section>${esc(c[1])}</section><section>${esc(c[2])}</section></div></div><p class=mu style="text-align:center">Tap the card to flip. Current rating: ${{e:'Easy',p:'Needs practice',d:'Difficult'}[S.cards[F.deck[F.i]]]||'none'}</p>
+<div class=row><button id=fp>← Previous</button><button id=fn>Next →</button><button data-r=e>😀 Easy</button><button data-r=p>🤔 Needs practice</button><button data-r=d>😣 Difficult</button></div>`:'<div class=card>No cards in this deck yet. Rate some cards first, or switch topic.</div>')}
+/* quiz */
+let Z={on:false,list:[],i:0,sel:null,sub:false,res:[]};
+function qSetup(){if(Z.on&&Z.i<Z.list.length)return qView();if(Z.on)return qEnd();
+return `<h1>Code Quiz</h1><p class=mu>Multiple choice, predict the output, find the error, complete the code and true/false. Answers show only after you submit.</p><div class=row><select id=qg aria-label="Quiz topic"><option value=all>Comprehensive exam (all ${Q.length})</option>${Object.entries(TOP).map(([k,v])=>`<option value=${k}>${v} quiz</option>`).join('')}</select><button class=p id=qs>Start quiz</button></div>
+<h2>Best scores</h2><p>${Object.entries(S.best).map(([k,v])=>`<span class=tag>${k==='all'?'Exam':TOP[k]}: ${v}%</span>`).join('')||'<span class=mu>No attempts yet.</span>'}</p>`}
+function qView(){const k=Z.list[Z.i],q=Q[k];
+return `<h1>Question ${Z.i+1} of ${Z.list.length}</h1><div class=bar><i style="width:${Z.i/Z.list.length*100}%"></i></div><span class=tag>${TOP[q.g]}</span><h3 style="margin-top:.6rem">${q.q}</h3>${q.c?code(q.c):''}`+
+q.o.map((o,j)=>`<button class="opt ${Z.sub?(j===q.a?'ok':j===Z.sel?'no':''):(j===Z.sel?'sel':'')}" data-o=${j} ${Z.sub?'disabled':''}>${String.fromCharCode(65+j)}. ${esc(o)}</button>`).join('')+
+(Z.sub?`<div class="fb ${Z.sel===q.a?'ok':'no'}"><b>${Z.sel===q.a?'Correct!':'Not quite.'}</b> The answer is <b>${esc(q.o[q.a])}</b>. ${q.e}</div><div class=row>${Z.sel!==q.a?'<button id=qr>↻ Retry</button>':''}<button class=p id=qn>${Z.i+1<Z.list.length?'Next question →':'See results'}</button></div>`:`<div class=row><button class=p id=qb ${Z.sel===null?'disabled':''}>Submit answer</button></div>`)}
+function qEnd(){const ok=Z.res.filter(r=>r[1]).length,p=Math.round(ok/Z.res.length*100),by={};Z.res.forEach(([k,c])=>{const g=Q[k].g;by[g]=by[g]||[0,0];by[g][1]++;if(c)by[g][0]++});
+const str=Object.keys(by).filter(g=>by[g][0]/by[g][1]>=.75),wk=Object.keys(by).filter(g=>by[g][0]/by[g][1]<.75);
+return `<h1>Results: ${ok}/${Z.res.length} (${p}%)</h1><div class=bar><i style="width:${p}%"></i></div><h2>Strengths</h2><p>${str.map(g=>`<span class=tag>${TOP[g]}</span>`).join('')||'<span class=mu>Keep practicing!</span>'}</p><h2>Topics to review</h2><p>${wk.map(g=>`<a class=tag href="#${L.find(l=>l.g===g).id}">${TOP[g]} →</a>`).join('')||'<span class=mu>None — great job!</span>'}</p><div class=row><button class=p id=qa>New quiz</button></div>`}
+/* trace */
+let TS={n:0,s:0};
+function trView(){const t=T[TS.n],sh=t.r.slice(0,TS.s);
+return `<h1>Code Tracing Lab</h1><p class=mu>Follow the program one step at a time.</p><div class=row>${T.map((x,i)=>`<button class="${i===TS.n?'p':''}" data-t=${i}>${x.t}</button>`).join('')}</div>${code(t.c)}${tbl(t.h,[t.r[0].map((c,i)=>i===0?'Initial':'—')].slice(0,0).concat(sh))||''}<p class=mu>${TS.s===0?'Press “Next step” to begin.':`Step ${TS.s} of ${t.r.length}`}</p><div class=row><button class=p id=tn ${TS.s>=t.r.length?'disabled':''}>Next step</button><button id=tr>Reset</button></div>`}
+/* practice */
+function prView(){return `<h1>Practice Coding</h1><div class=card style="border-color:var(--wn)"><b>Note:</b> this site cannot compile or run C#. Write your answer in the editor, then compare it with the reference solution and trace both by hand.</div>`+['Beginner','Intermediate','Challenge'].map(lv=>`<h2>${lv}</h2>`+P.map((p,i)=>p.lv!==lv?'':`<details class=card style="margin:.6rem 0"><summary><b>${p.t}</b> ${S.prac.includes(i)?'<span class=tag>✔ done</span>':''}</summary><p>${p.p}</p><b>Sample:</b><pre>${esc(p.io)}</pre><p class=mu>💡 Hint: ${p.h}</p><textarea aria-label="Your code" placeholder="// Write your C# here (not executed)"></textarea><div class=row><button data-sol=${i}>Show reference solution</button><button data-pd=${i}>${S.prac.includes(i)?'Mark not done':'Mark done'}</button></div><div id=sol${i} hidden>${code(p.s)}<p>${p.x}</p></div></details>`).join('')).join('')}
+/* ---------- ROUTER + EVENTS ---------- */
+function route(){const r=location.hash.slice(1)||'home';nav(r);$a.innerHTML=L.some(l=>l.id===r)?lesson(r):(V[r]||V.home)();$('#side').classList.remove('open');$('#mb').setAttribute('aria-expanded','false');wire(r)}
+function wire(r){const on=(s,f)=>{const e=$(s);if(e)e.onclick=f};
+on('#dn',()=>{S.done=S.done.includes(r)?S.done.filter(x=>x!==r):S.done.concat(r);save();route()});
+if(r==='cards'){const rf=()=>{$a.innerHTML=fcView();wire('cards')};
+on('#fc',()=>{F.flip=!F.flip;$('#fc').classList.toggle('f')});$('#fc')&&($('#fc div').onkeydown=e=>{if(e.key==='Enter'||e.key===' '){e.preventDefault();$('#fc').classList.toggle('f');F.flip=!F.flip}});
+on('#fn',()=>{F.i=(F.i+1)%F.deck.length;F.flip=false;rf()});on('#fp',()=>{F.i=(F.i-1+F.deck.length)%F.deck.length;F.flip=false;rf()});
+on('#fs',()=>{F.deck.sort(()=>Math.random()-.5);F.i=0;F.flip=false;rf()});on('#fh',()=>{F.hard=!F.hard;fcDeck();rf()});
+$('#fg')&&($('#fg').onchange=e=>{F.g=e.target.value;fcDeck();rf()});
+document.querySelectorAll('[data-r]').forEach(b=>b.onclick=()=>{S.cards[F.deck[F.i]]=b.dataset.r;save();if(F.i<F.deck.length-1)F.i++;F.flip=false;rf()})}
+if(r==='quiz'){const rf=()=>{$a.innerHTML=qSetup();wire('quiz')};
+on('#qs',()=>{const g=$('#qg').value;Z={on:true,list:Q.map((q,i)=>i).filter(i=>g==='all'||Q[i].g===g),i:0,sel:null,sub:false,res:[],g};rf()});
+document.querySelectorAll('.opt').forEach(b=>b.onclick=()=>{if(!Z.sub){Z.sel=+b.dataset.o;rf()}});
+on('#qb',()=>{if(Z.sel===null)return;const k=Z.list[Z.i],c=Z.sel===Q[k].a;Z.sub=true;if(!Z.retry){Z.res.push([k,c]);S.qa[k]=c?1:0}Z.retry=false;save();rf()});
+on('#qr',()=>{Z.sel=null;Z.sub=false;Z.retry=true;rf()});
+on('#qn',()=>{Z.i++;Z.sel=null;Z.sub=false;Z.retry=false;if(Z.i>=Z.list.length){const p=Math.round(Z.res.filter(x=>x[1]).length/Z.res.length*100);S.best[Z.g]=Math.max(S.best[Z.g]||0,p);save()}rf()});
+on('#qa',()=>{Z={on:false,list:[],i:0,sel:null,sub:false,res:[]};rf()})}
+if(r==='trace'){const rf=()=>{$a.innerHTML=trView();wire('trace')};
+document.querySelectorAll('[data-t]').forEach(b=>b.onclick=()=>{TS={n:+b.dataset.t,s:0};rf()});on('#tn',()=>{TS.s++;rf()});on('#tr',()=>{TS.s=0;rf()})}
+if(r==='practice'){document.querySelectorAll('[data-sol]').forEach(b=>b.onclick=()=>{const e=$('#sol'+b.dataset.sol);e.hidden=!e.hidden;b.textContent=e.hidden?'Show reference solution':'Hide solution'});
+document.querySelectorAll('[data-pd]').forEach(b=>b.onclick=()=>{const i=+b.dataset.pd;S.prac=S.prac.includes(i)?S.prac.filter(x=>x!==i):S.prac.concat(i);save();b.textContent=S.prac.includes(i)?'Mark not done':'Mark done'})}}
+$('#mb').onclick=()=>{const o=$('#side').classList.toggle('open');$('#mb').setAttribute('aria-expanded',o)};
+$a.addEventListener('click',()=>$('#side').classList.remove('open'));
+addEventListener('hashchange',()=>{route();scrollTo(0,0)});route();
+</script></body></html>
